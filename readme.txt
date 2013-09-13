@@ -1,9 +1,9 @@
 === Somewhere search box ===
-Contributors: takenori matsuura
+Contributors: tmatsuur
 Donate link: http://elearn.jp/wpman/column/somewhere-search-box.html
 Tags: post, search
 Requires at least: 3.2
-Tested up to: 3.5
+Tested up to: 3.6.1
 Stable tag: 1.0.0
 
 Search post widget and previous/next post edit button add on edit page.
