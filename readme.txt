@@ -1,10 +1,10 @@
 === Somewhere search box ===
-Contributors: tmatsuur
+Contributors: takenori matsuura
 Donate link: http://elearn.jp/wpman/column/somewhere-search-box.html
 Tags: post, search
 Requires at least: 3.2
-Tested up to: 3.6.1
-Stable tag: 1.0.0
+Tested up to: 3.8
+Stable tag: 1.1.0
 
 Search post widget and previous/next post edit button add on edit page.
 
@@ -51,6 +51,9 @@ Please contact to me.
 2. Previous and next post edit button in edit page.
 
 == Changelog ==
+
+= 1.1.0 =
+* The custom post type is supported.
 
 = 1.0.0 =
 * The first release.
