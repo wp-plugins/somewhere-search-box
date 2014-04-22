@@ -4,18 +4,18 @@
 Plugin URI: http://elearn.jp/wpman/column/somewhere-search-box.html
 Description: Search box widget add to the admin post editor.
 Author: tmatsuur
-Version: 1.1.0
+Version: 1.1.1
 Author URI: http://12net.jp/
 */
 
 /*
- Copyright (C) 2012-2013 tmatsuur (Email: takenori dot matsuura at 12net dot jp)
+ Copyright (C) 2012-2014 tmatsuur (Email: takenori dot matsuura at 12net dot jp)
 This program is licensed under the GNU GPL Version 2.
 */
 
 define( 'SOMEWHERE_SEARCH_BOX_DOMAIN', 'somewhere-search-box' );
 define( 'SOMEWHERE_SEARCH_BOX_DB_VERSION_NAME', 'somewhere-search-box-db-version' );
-define( 'SOMEWHERE_SEARCH_BOX_DB_VERSION', '1.1.0' );
+define( 'SOMEWHERE_SEARCH_BOX_DB_VERSION', '1.1.1' );
 
 class somewhere_search_box {
 	var $post_type;
@@ -52,11 +52,13 @@ class somewhere_search_box {
 		}
 	}
 	function meta_box() {
-		$add_post_type_param = '';
-		if ( $this->post_type != '' )
-			$add_post_type_param = '&post_type='.$this->post_type;
 ?>
-<input type="text" id="somewhere-search-input" name="s" value="" style="width: 70%;" />
+<input type="text" id="somewhere-search-input" name="s" value="" style="width: 100%;" />
+<select name="post_type" id="somewhere-search-post-type">
+<?php foreach ( get_post_types( array( 'show_ui'=>true ), 'objects' ) as $post_type ) { ?>
+<option value="<?php _e( $post_type->name ); ?>" <?php selected( $this->post_type == $post_type->name ); ?>><?php _e( $post_type->labels->name ); ?></option>
+<?php } ?>
+</select>
 <a class="button" href="javascript:post_searchbox( '<?php echo admin_url( 'edit.php' ); ?>' );"><?php _e( 'Search' ); ?></a>
 <?php
 	}
@@ -75,9 +77,6 @@ class somewhere_search_box {
 				$edit_post_link .= '&nbsp;<a href="?post='.intval( $next_post->ID ).'&action=edit" title="'.esc_attr( sprintf( __( 'Edit &#8220;%s&#8221;' ), $title ) ).'" class="button">'.__( 'Next &raquo;' ).'</a>';
 			}
 		}
-		$add_post_type_param = '';
-		if ( $this->post_type != '' )
-			$add_post_type_param = '&post_type='.$this->post_type;
 ?>
 <script type="text/javascript">
 jQuery(document).ready( function () {
@@ -93,8 +92,13 @@ jQuery(document).ready( function () {
 } );
 function post_searchbox( url ) {
 	var post_search_input = jQuery.trim( jQuery( '#somewhere-search-input' ).val() );
-	if ( post_search_input != '' )
-		location.href = url+'?s='+encodeURI( post_search_input )+'<?php echo $add_post_type_param; ?>';
+	if ( post_search_input != '' ) {
+		url += '?s='+encodeURI( post_search_input );
+		post_type_selected = jQuery.trim( jQuery( '#somewhere-search-post-type' ).val() );
+		if ( post_type_selected != 'post' )
+			url += '&post_type='+encodeURI( post_type_selected );
+		location.href = url;
+	}
 }
 </script>
 <?php
