@@ -3,7 +3,7 @@ Contributors: tmatsuur
 Donate link: http://elearn.jp/wpman/column/somewhere-search-box.html
 Tags: post, search
 Requires at least: 3.2
-Tested up to: 3.9
+Tested up to: 4.0.0
 Stable tag: 1.1.1
 
 Search post widget and previous/next post edit button add on edit page.
