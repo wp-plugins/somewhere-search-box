@@ -3,8 +3,8 @@ Contributors: tmatsuur
 Donate link: http://elearn.jp/wpman/column/somewhere-search-box.html
 Tags: post, search
 Requires at least: 3.2
-Tested up to: 4.0.0
-Stable tag: 1.1.1
+Tested up to: 4.3.0
+Stable tag: 1.1.2
 
 Search post widget and previous/next post edit button add on edit page.
 
@@ -51,6 +51,9 @@ Please contact to me.
 2. Previous and next post edit button in edit page.
 
 == Changelog ==
+
+= 1.1.2 =
+* Bug fix: `Previous/Next post edit button` does not appear in version 4.3.
 
 = 1.1.1 =
 * The post type selection box added.

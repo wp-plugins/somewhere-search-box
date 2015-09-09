@@ -4,18 +4,18 @@
 Plugin URI: http://elearn.jp/wpman/column/somewhere-search-box.html
 Description: Search box widget add to the admin post editor.
 Author: tmatsuur
-Version: 1.1.1
+Version: 1.1.2
 Author URI: http://12net.jp/
 */
 
 /*
- Copyright (C) 2012-2014 tmatsuur (Email: takenori dot matsuura at 12net dot jp)
+ Copyright (C) 2012-2015 tmatsuur (Email: takenori dot matsuura at 12net dot jp)
 This program is licensed under the GNU GPL Version 2.
 */
 
 define( 'SOMEWHERE_SEARCH_BOX_DOMAIN', 'somewhere-search-box' );
 define( 'SOMEWHERE_SEARCH_BOX_DB_VERSION_NAME', 'somewhere-search-box-db-version' );
-define( 'SOMEWHERE_SEARCH_BOX_DB_VERSION', '1.1.1' );
+define( 'SOMEWHERE_SEARCH_BOX_DB_VERSION', '1.1.2' );
 
 class somewhere_search_box {
 	var $post_type;
@@ -63,7 +63,7 @@ class somewhere_search_box {
 <?php
 	}
 	function footer() {
-		global $post;
+		global $post, $pagenow;
 		if ( isset( $post->post_status ) && $post->post_status != 'auto-draft' ) {
 			$edit_post_link = '';
 			$prev_post = get_previous_post();
@@ -80,12 +80,15 @@ class somewhere_search_box {
 ?>
 <script type="text/javascript">
 jQuery(document).ready( function () {
+<?php if ( in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) && $edit_post_link != '' ) { ?>
 	jQuery( '.add-new-h2' ).each( function () {
 		jQuery(this).removeClass( 'add-new-h2' ).addClass( 'button' ).parent().addClass( 'wp-core-ui' );
-		<?php if ( $edit_post_link != '' ) { ?>
-			jQuery(this).after( '<?php echo $edit_post_link; ?>' );
-		<?php } ?>
-		} );
+		jQuery(this).after( '<?php echo $edit_post_link; ?>' );
+	} );
+	jQuery( 'h1 a.page-title-action' ).each( function () {
+		jQuery(this).after( '<?php echo $edit_post_link; ?>' );
+	} );
+<?php } ?>
 	jQuery( '#somewhere-search-input' ).keypress( function ( e ) {
 		if ( e.which == 13 ) { post_searchbox( '<?php echo admin_url( 'edit.php' ); ?>' ); return false; }
 	} );
